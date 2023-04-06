@@ -1,0 +1,112 @@
+---
+title: 'Case Study 1: Bike Trip Data'
+author: "Rani Bhangu"
+date: "2023-03-18"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Installing the package Tidyverse
+We require the package Tidyverse for any sort of Data operations in R. Installing and loading the library using the following:
+
+```{r Tidyverse,echo=TRUE}
+install.packages("tidyverse")
+library(tidyverse)
+```
+
+# Reading the Data
+Uploaded the Data file(CSV file) in R environment and then stored it into a dataframe called df by using the read_csv function
+
+```{r read_csv, echo=TRUE}
+df=read_csv("202204divvytripdata.csv")
+```
+
+# Summary of the Data
+Initially we observed all the details about the columns. The total number of rows also was obtained from the summary.
+
+```{r summary,echo=TRUE}
+summary(df)
+```
+
+# Segregate the member data
+To seperate the annual members we create a new dataframe called df2 which will have only the member values from member_casual column and also we find the number of rows of df2
+
+```{r members,echo=TRUE}
+df2=df[df$member_casual=='member',]
+nrow(df2)
+```
+
+# Calculating the time taken for Bike rides
+We create using the mutate function a new dataframe df3 containing the time difference column in hours. The time difference is taken by the difftime function using start time and end time of the rides
+
+```{r difftime,echo=TRUE}
+df3=mutate(df,time_difference_hours = difftime(ended_at, started_at, units = "hours"))
+```
+
+# Analying the time differences obtained
+We observed the time differences for all the rides and found the mean time taken for a ride and also the range i.e min and max values.
+
+```{r time_difference,echo=TRUE}
+head(df3$time_difference_hours,50)
+range(df3$time_difference_hours)
+mean(df3$time_difference_hours)
+```
+
+# Installing Geosphere
+To calculate the distance between the start station and end station we use the disthaversine function which is a part of geosphere library. So installing the geosphere library.
+
+```{r geosphere,echo=TRUE}
+install.packages("geosphere")
+library(geosphere)
+```
+
+# Creating a dataframe for the distances
+Using disthaversine function we calculate the distance and we store it in the new dataframe called df4
+
+```{r distHaversine,echo=TRUE}
+df4=mutate(df,distance_km = distHaversine(cbind(start_lng, start_lat), cbind(end_lng, end_lat))*0.001)
+```
+
+# Analyzing the ride distances
+We observe the distance_km data as well as summarize it
+
+```{r ride_distances,echo=TRUE}
+head(df4$distance_km,50)
+summary(df4$distance_km)
+```
+
+# Segergetating the casual data
+we separate the casual data in the member_casual column and create it in data frame called df6
+
+```{r casual,echo=TRUE} 
+df6=df[df$member_casual=='casual',]
+```
+
+# Analysing time difference
+Using the mutate function we creat the time_difference_column for df6 by taking the difference between ended_at and started_at. We also view the time difference column in the new data frame created.
+
+```{r time_diff_casual,echo=TRUE}
+df7 <- mutate(df6, time_difference_hours = difftime(ended_at, started_at, units = "hours"))
+head(df7$time_difference_hours,50)
+```
+
+# Statistics of time differnce 
+For the data frame df7 which contains casual members and time diffrences for each of those rides we observe the range and the mean
+
+```{r range_mean,echo=TRUE}
+range(df7$time_difference_hours)
+mean(df7$time_difference_hours)
+```
+
+# Observing the threashold value
+We now observe for how many rides in the casual data the time difference is greater than a threshold value. After a lot of trials we took a threshold value of 5 for understanding how much percentage of casual riders can be converted to annual members.
+
+```{r threashold,echo=TRUE}
+sum(df7$time_difference_hours>5)
+```
+
