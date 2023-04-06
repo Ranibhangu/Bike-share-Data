@@ -1,0 +1,18 @@
+3/4/23 - we anallize problem statement Cyclistic Bike Trip data 
+3/6/23- We sourced the data from Divvy Trip data.
+3/7/23- We Installed the Tidyverse pacakge, we imported the data file  using read_csv function.
+        We also observed summary of the data
+3/8/23  To answer the questions in our problem statement we anylized the data that was imported.
+         We used the mutate function to find time diffrenece between the rides and also distance between the rides.
+3/9/23 - Started working in Tableau. Created the data table
+3/10/23 - Continued work in Tableau and also took the images of Bike stations
+3/11/23 - Used SQL to write queries for finding the no. of Bike stations
+3/13/23 - We looked at the Case Study roadmap once to understand what we needed to Analyze
+3/14/23 - Modified our R analysis file. Added new lines of code for casual data.
+3/15/23 - Hands on work to get the results for the 12-month data files with the R code.
+3/16/23 - (Contd.) Hands on work to get the results for the 12-month data files with the R code.
+3/17/23 - Started to write the RMD file for making the presentation/pdf file with code and results.
+3/18/23 - Worked on the RMD file and made the presentation/pdf file with code and results. However it was very big 824 pages.
+3/19/23 - Trimmed down the RMD file and summed the values of casual data in Excel. Made conclusions about the case study.
+3/21/23 - Created the log file. Continued the discussion on decision making in regards to digital marketing.
+  
